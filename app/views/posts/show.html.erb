@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Picture:</strong>
+  <%=image_tag @post.picture.variant(resize_to_limit: [300, 300]) %>
+</p>
+
+<p>
+  <strong>Files:</strong>
+  <% @post.files.each do |file| %>
+    <% if file.variable? %>
+      <%= image_tag file.variant(resize_to_limit: [300, 300]) %>
+    <% elsif file.previewable? %>
+      <%= link_to image_tag(file.preview(resize_to_limit: [300, 300])), file %>
+    <% end %>
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
